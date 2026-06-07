@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalPath RPG — Calisthenics Guild &amp; Quest Tree</title>
+  <meta name="description" content="Master your body in this medieval fantasy RPG calisthenics quest log and guild tree. Zero equipment needed. Train from Initiate to Legendary Sovereign." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Grenze+Gotisch:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=2.2" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="pixel-deco shield" style="width: 24px; height: 24px;"></span>
+        <span class="logo-text">Cal<span class="logo-accent">Path</span></span>
+      </div>
+      <nav class="header-nav">
+        <button class="nav-btn active" data-view="tree" id="nav-tree"><span class="pixel-deco leaf" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Skill Tree</button>
+        <button class="nav-btn" data-view="forge" id="nav-forge"><span class="pixel-deco sword" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Forge Workout</button>
+        <button class="nav-btn" data-view="log" id="nav-log"><span class="pixel-deco scroll" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Quest Log</button>
+        <button class="nav-btn" data-view="profile" id="nav-profile"><span class="pixel-deco potion" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Profile</button>
+        <button class="nav-btn" id="sound-toggle" onclick="toggleMute()" title="Toggle Sound">🔊</button>
+      </nav>
+      <div class="header-xp">
+        <div class="xp-label">Total XP</div>
+        <div class="xp-value" id="total-xp-display">0</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO BANNER ===== -->
+  <section class="hero-banner" id="hero-banner">
+    <div class="hero-particles" id="hero-particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge" style="display: inline-flex; align-items: center; gap: 0.35rem; vertical-align: middle;"><span class="pixel-deco leaf" style="width: 16px; height: 16px;"></span> GUILD OF NATURE WARRIORS</div>
+      <div class="lush-divider"></div>
+      <h1 class="hero-title">Forge Your Legend.<br/><span class="gradient-text">Ascend The Guild.</span></h1>
+      <p class="hero-subtitle">No equipment. Train with hearth, wall, and iron will. Progress from humble Initiate to Sovereign Calisthenics Overlord.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-num" id="skills-unlocked">0</span>
+          <span class="stat-lbl">Skills Unlocked</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" id="skills-total">0</span>
+          <span class="stat-lbl">Total Skills</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" id="hero-level">1</span>
+          <span class="stat-lbl">Level</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- VIEWS WRAPPER -->
+    <div class="views-wrapper">
+
+      <!-- ===== SKILL TREE VIEW ===== -->
+      <div class="view active" id="view-tree">
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="filter-row" style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; width: 100%;">
+            <div class="filter-label">Filter by branch:</div>
+            <div class="filter-chips" id="filter-chips">
+              <button class="chip active" data-filter="all"><span class="pixel-deco leaf" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>All</button>
+              <button class="chip" data-filter="push"><span class="pixel-deco sword" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Push</button>
+              <button class="chip" data-filter="pull"><span class="pixel-deco bow" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Pull</button>
+              <button class="chip" data-filter="core"><span class="pixel-deco potion" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Core</button>
+              <button class="chip" data-filter="legs"><span class="pixel-deco shield" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Legs</button>
+              <button class="chip" data-filter="wall"><span class="pixel-deco scroll" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Wall</button>
+              <button class="chip" data-filter="mobility"><span class="pixel-deco leaf" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span>Mobility</button>
+            </div>
+            <!-- Search bar -->
+            <input type="text" id="skill-search" placeholder="🔍 Search skills..." style="background: var(--bg2); border: 1px solid var(--border); color: var(--text); padding: 0.45rem 0.8rem; border-radius: 8px; font-family: var(--font-alt); font-size: 0.85rem; outline: none; margin-left: auto; width: 220px; transition: border-color 0.2s;" oninput="onSearchInput()">
+          </div>
+          <div class="filter-row" style="margin-top: 0.75rem; border-top: 1px solid var(--border); padding-top: 0.75rem; width: 100%; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+            <div class="filter-label">Environment Toggles:</div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-floor" checked onchange="toggleEnvFilter('floor')"> Floor</label>
+              <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-wall" checked onchange="toggleEnvFilter('wall')"> Wall</label>
+              <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-furniture" checked onchange="toggleEnvFilter('furniture')"> Ledge/Chair</label>
+              <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-bar" checked onchange="toggleEnvFilter('bar')"> Pull-up Bar</label>
+              <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-dip_bar" checked onchange="toggleEnvFilter('dip_bar')"> Dip Bars</label>
+              <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-rings" checked onchange="toggleEnvFilter('rings')"> Gymnastic Rings</label>
+            </div>
+            <div class="filter-legend" style="margin-left: auto;">
+              <span class="legend-dot locked"></span> Locked
+              <span class="legend-dot available"></span> Available
+              <span class="legend-dot mastered"></span> Mastered
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier Headers -->
+        <div class="tier-labels" id="tier-labels">
+          <div class="tier-label" data-tier="1"><span class="tier-icon">🥉</span> Tier I — Initiate</div>
+          <div class="tier-label" data-tier="2"><span class="tier-icon">🥈</span> Tier II — Apprentice</div>
+          <div class="tier-label" data-tier="3"><span class="tier-icon">🥇</span> Tier III — Warrior</div>
+          <div class="tier-label" data-tier="4"><span class="tier-icon">💎</span> Tier IV — Champion</div>
+          <div class="tier-label" data-tier="5"><span class="tier-icon">👑</span> Tier V — Legend</div>
+        </div>
+
+        <!-- Skill Tree Canvas -->
+        <div class="tree-container" id="tree-container">
+          <svg class="connection-lines" id="connection-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="tree-grid" id="tree-grid">
+            <!-- Skills injected by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== WORKOUT FORGE VIEW ===== -->
+      <div class="view" id="view-forge">
+        <div class="forge-container">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">⚒️</span> Workout Forge</h2>
+            <p class="section-sub">Generate a smart workout based on your skill tree progress. Skills you can unlock are prioritised.</p>
+          </div>
+          
+          <!-- Progress Snapshot Banner -->
+          <div id="forge-progress-banner" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+            <div style="flex:1;min-width:120px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1rem;text-align:center;">
+              <div id="forge-mastered-count" style="font-size:1.6rem;font-weight:900;font-family:var(--font-head);color:var(--green);">0</div>
+              <div style="font-size:0.75rem;color:var(--muted);font-family:var(--font-alt);text-transform:uppercase;letter-spacing:0.05em;">Mastered</div>
+            </div>
+            <div style="flex:1;min-width:120px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1rem;text-align:center;">
+              <div id="forge-available-count" style="font-size:1.6rem;font-weight:900;font-family:var(--font-head);color:var(--accent);">0</div>
+              <div style="font-size:0.75rem;color:var(--muted);font-family:var(--font-alt);text-transform:uppercase;letter-spacing:0.05em;">Available</div>
+            </div>
+            <div style="flex:1;min-width:120px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1rem;text-align:center;">
+              <div id="forge-inprogress-count" style="font-size:1.6rem;font-weight:900;font-family:var(--font-head);color:var(--accent3);">0</div>
+              <div style="font-size:0.75rem;color:var(--muted);font-family:var(--font-alt);text-transform:uppercase;letter-spacing:0.05em;">In Progress</div>
+            </div>
+            <div style="flex:1;min-width:120px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1rem;text-align:center;">
+              <div id="forge-next-tier-count" style="font-size:1.6rem;font-weight:900;font-family:var(--font-head);color:var(--accent2);">0</div>
+              <div style="font-size:0.75rem;color:var(--muted);font-family:var(--font-alt);text-transform:uppercase;letter-spacing:0.05em;">Almost Ready</div>
+            </div>
+          </div>
+
+          <div class="forge-setup-card">
+            <div class="forge-options">
+              <div class="forge-option">
+                <label for="forge-intensity">🔥 Training Intensity</label>
+                <select id="forge-intensity">
+                  <option value="easy">Beginner Initiate (3 Exercises)</option>
+                  <option value="medium" selected>Warrior Journey (5 Exercises)</option>
+                  <option value="hard">Titan Trial (7 Exercises)</option>
+                </select>
+              </div>
+              <div class="forge-option">
+                <label for="forge-focus">🎯 Target Focus</label>
+                <select id="forge-focus">
+                  <option value="all" selected>Full Body Calisthenics</option>
+                  <option value="push">Upper Body Push Focus</option>
+                  <option value="pull">Upper Body Pull Focus</option>
+                  <option value="core">Core Compression Focus</option>
+                  <option value="legs">Leg Power Focus</option>
+                  <option value="wall">Inversion/Handstand Focus</option>
+                  <option value="mobility">Flexibility &amp; Joint Rehab</option>
+                </select>
+              </div>
+              <div class="forge-option">
+                <label for="forge-mode">⚙️ Skill Selection Mode</label>
+                <select id="forge-mode">
+                  <option value="smart" selected>Smart (Prioritise Available + In-Progress)</option>
+                  <option value="mastered">Practice Mode (Mastered Skills Only)</option>
+                  <option value="stretch">Stretch Mode (Mix Mastered + Next Tier)</option>
+                  <option value="any">Open Mode (Any Skill in Environment)</option>
+                </select>
+              </div>
+            </div>
+            
+            <button class="btn-forge-generate" id="btn-forge-generate" onclick="generateWorkout()">
+              ⚡ Forge Custom Quest
+            </button>
+          </div>
+
+          <div class="forge-active-quest" id="forge-active-quest" style="display: none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+              <h3 class="col-title" style="margin:0;">⚔️ Today's Quest Routine</h3>
+              <div id="forge-quest-tag" style="font-family:var(--font-alt);font-size:0.8rem;font-weight:700;padding:0.25rem 0.6rem;border-radius:6px;background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);color:var(--accent);"></div>
+            </div>
+            <p id="forge-quest-lore" style="font-family: var(--font-alt); font-size: 0.88rem; color: var(--muted); font-style: italic; background: var(--bg3); border-left: 3px solid var(--accent); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem; line-height: 1.45;"></p>
+            <div class="workout-exercises-list" id="workout-exercises-list">
+              <!-- Populated by JS -->
+            </div>
+            <div class="workout-actions">
+              <button class="btn-start-session" onclick="startWorkoutSession()">
+                ⚔️ Start Workout Session
+              </button>
+            </div>
+          </div>
+          
+          <div class="forge-empty-state" id="forge-empty-state">
+            <div class="empty-state">
+              No workout forged yet.<br/>Select your options above and click Forge!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== QUEST LOG VIEW ===== -->
+      <div class="view" id="view-log">
+        <div class="quest-log-container">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">📜</span> Quest Log</h2>
+            <p class="section-sub">Your completed skills and workout history</p>
+          </div>
+          <div class="quest-log-content">
+            <div class="quest-columns">
+              <div class="quest-col">
+                <h3 class="col-title">🏆 Mastered Skills</h3>
+                <div class="mastered-list" id="mastered-list">
+                  <div class="empty-state">No skills mastered yet.<br/>Start your journey!</div>
+                </div>
+              </div>
+              <div class="quest-col">
+                <h3 class="col-title">⚡ In Progress</h3>
+                <div class="inprogress-list" id="inprogress-list">
+                  <div class="empty-state">Mark skills as in-progress<br/>to track here.</div>
+                </div>
+              </div>
+            </div>
+            <div class="achievements-section">
+              <h3 class="col-title">🎖️ Achievements</h3>
+              <div class="achievements-grid" id="achievements-grid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PROFILE VIEW ===== -->
+      <div class="view" id="view-profile">
+        <div class="profile-container">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">⚔️</span> Warrior Profile</h2>
+          </div>
+          <div class="profile-card-grid">
+            <!-- Stat Card -->
+            <div class="profile-card main-card">
+              <div class="avatar-ring" id="avatar-ring">
+                <div class="avatar-inner">
+                  <span class="avatar-emoji" id="avatar-emoji">🥉</span>
+                </div>
+              </div>
+              <div class="warrior-name" id="warrior-class-name">Home Warrior</div>
+              <div class="warrior-title" id="warrior-title">Initiate</div>
+              <div class="streak-badge" id="streak-badge">🔥 Streak: 0 Days</div>
+              <div class="profile-level-bar">
+                <div class="level-bar-track">
+                  <div class="level-bar-fill" id="level-bar-fill" style="width:0%"></div>
+                </div>
+                <div class="level-bar-labels">
+                  <span>Lv. <span id="current-level">1</span></span>
+                  <span><span id="xp-current">0</span> / <span id="xp-next">500</span> XP</span>
+                </div>
+              </div>
+            </div>
+            <!-- Stats Grid -->
+            <div class="profile-card stats-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                <h3 class="card-title" style="border: none; margin: 0; padding: 0;">📊 Stats</h3>
+                <span class="avail-points-badge" id="stat-points-avail" style="display: none; background: rgba(240,165,0,0.15); border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; font-family: var(--font-alt); font-weight: 700;">Available: 0 pts</span>
+              </div>
+              <div class="rpg-attributes" style="margin-bottom: 1.25rem; padding: 0.75rem 1rem; background: var(--bg2); border-radius: 10px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-alt); font-size: 0.95rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>⚔️ Strength: <strong id="val-strength" style="color: var(--accent);">0</strong></span>
+                  <button class="btn-allocate" id="btn-alloc-strength" onclick="allocateStat('strength')" style="background: var(--card); border: 1px solid var(--border); color: var(--text); width: 24px; height: 24px; border-radius: 4px; cursor: pointer; font-weight: bold; line-height: 1;">+</button>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>🤸 Agility: <strong id="val-agility" style="color: var(--accent2);">0</strong></span>
+                  <button class="btn-allocate" id="btn-alloc-agility" onclick="allocateStat('agility')" style="background: var(--card); border: 1px solid var(--border); color: var(--text); width: 24px; height: 24px; border-radius: 4px; cursor: pointer; font-weight: bold; line-height: 1;">+</button>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>⚖️ Balance: <strong id="val-balance" style="color: var(--accent3);">0</strong></span>
+                  <button class="btn-allocate" id="btn-alloc-balance" onclick="allocateStat('balance')" style="background: var(--card); border: 1px solid var(--border); color: var(--text); width: 24px; height: 24px; border-radius: 4px; cursor: pointer; font-weight: bold; line-height: 1;">+</button>
+                </div>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div class="stat-icon">💪</div>
+                  <div class="stat-info">
+                    <div class="stat-name">Push Power</div>
+                    <div class="stat-bar-wrap"><div class="stat-bar" id="stat-push"><div class="stat-fill" style="width:0%"></div></div></div>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">⚡</div>
+                  <div class="stat-info">
+                    <div class="stat-name">Core Strength</div>
+                    <div class="stat-bar-wrap"><div class="stat-bar" id="stat-core"><div class="stat-fill" style="width:0%"></div></div></div>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">🦵</div>
+                  <div class="stat-info">
+                    <div class="stat-name">Leg Drive</div>
+                    <div class="stat-bar-wrap"><div class="stat-bar" id="stat-legs"><div class="stat-fill" style="width:0%"></div></div></div>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">🧱</div>
+                  <div class="stat-info">
+                    <div class="stat-name">Wall Mastery</div>
+                    <div class="stat-bar-wrap"><div class="stat-bar" id="stat-wall"><div class="stat-fill" style="width:0%"></div></div></div>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">🌀</div>
+                  <div class="stat-info">
+                    <div class="stat-name">Flexibility</div>
+                    <div class="stat-bar-wrap"><div class="stat-bar" id="stat-mobility"><div class="stat-fill" style="width:0%"></div></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Progress Ring Card -->
+            <div class="profile-card progress-card">
+              <h3 class="card-title">🗺️ Overall Progress</h3>
+              <div class="progress-ring-wrap">
+                <svg class="progress-ring-svg" viewBox="0 0 120 120">
+                  <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                  <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="50" 
+                    stroke-dasharray="314" stroke-dashoffset="314"/>
+                </svg>
+                <div class="ring-center">
+                  <div class="ring-pct" id="ring-pct">0%</div>
+                  <div class="ring-lbl">Complete</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- History Calendar Card -->
+          <div class="profile-card history-card" style="margin-top: 1.5rem; width: 100%;">
+            <h3 class="card-title">📅 Workout History (Past 28 Days)</h3>
+            <div class="calendar-grid" id="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; max-width: 400px; margin: 0 auto;">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Settings Card -->
+          <div class="profile-card settings-card" style="margin-top: 1.5rem; width: 100%;">
+            <h3 class="card-title">⚙️ Audio Settings</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem; font-family: var(--font-alt); font-size: 0.95rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>Sound FX & Voice Volume:</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span id="volume-lbl">100%</span>
+                  <input type="range" id="volume-slider" min="0" max="100" value="100" oninput="changeVolume(this.value)" style="accent-color: var(--accent); cursor: pointer; width: 120px;">
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Guild Master Voice Narrator:</span>
+                <button class="btn-timer" id="voice-narrator-btn" onclick="toggleVoiceNarrator()" style="padding: 0.35rem 0.8rem; font-size: 0.85rem; border-color: var(--accent3); color: var(--accent3);">Enabled</button>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Guild Tavern Bard Music:</span>
+                <button class="btn-timer" id="music-toggle-btn" onclick="toggleMusic()" style="padding: 0.35rem 0.8rem; font-size: 0.85rem; border-color: var(--accent); color: var(--accent);">Enabled</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Backup & Restore Progress Card -->
+          <div class="profile-card backup-card" style="margin-top: 1.5rem; width: 100%;">
+            <h3 class="card-title">💾 Backup & Restore Progress</h3>
+            <p style="font-family: var(--font-alt); font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.4;">
+              Export your training data to a code block to transfer it to other devices, or paste an existing backup code below to restore your progress.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <textarea id="backup-code-area" placeholder="Your progress code will appear here, or paste a code here to restore..." style="width: 100%; height: 80px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 0.5rem; font-family: monospace; font-size: 0.8rem; resize: none;"></textarea>
+              <div style="display: flex; gap: 0.75rem;">
+                <button class="btn-timer" onclick="exportProgress()" style="flex: 1; padding: 0.5rem; font-size: 0.85rem;">📤 Export Code</button>
+                <button class="btn-timer" onclick="importProgress()" style="flex: 1; padding: 0.5rem; font-size: 0.85rem; border-color: var(--green); color: var(--green);">📥 Restore Code</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reset -->
+          <div class="danger-zone" style="margin-top: 1.5rem;">
+            <button class="btn-reset" id="btn-reset" onclick="confirmReset()">🔄 Reset Progress</button>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- end views-wrapper -->
+  </main>
+
+  <!-- ===== SKILL MODAL ===== -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="skill-modal">
+      <button class="modal-close" id="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-header">
+        <div class="modal-icon-wrap">
+          <span class="modal-icon" id="modal-icon">💪</span>
+        </div>
+        <div class="modal-title-group">
+          <div class="modal-tier-badge" id="modal-tier-badge">Tier I</div>
+          <h2 class="modal-title" id="modal-title">Skill Name</h2>
+          <div class="modal-category" id="modal-category">Push</div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="modal-desc">Description</p>
+        <div class="modal-meta">
+          <div class="meta-item">
+            <span class="meta-label">XP Reward</span>
+            <span class="meta-val xp" id="modal-xp">+100 XP</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-val" id="modal-difficulty">⭐⭐</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Target</span>
+            <span class="meta-val" id="modal-target">Chest, Triceps</span>
+          </div>
+        </div>
+        
+        <!-- Runes Socketing Section -->
+        <div class="modal-runes" style="margin-bottom: 1.5rem;">
+          <h4 style="font-family: var(--font-alt); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.75rem; color: var(--muted); text-transform: uppercase;">🔮 Socket Runic Modifier</h4>
+          <div class="runes-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; font-family: var(--font-alt); font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">
+            <div class="rune-slot active" id="rune-none" onclick="selectRune('none')" style="padding: 0.5rem; background: var(--card); border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;" title="Standard Workout Pace">
+              <span class="rune-glyph">⚪</span> None
+            </div>
+            <div class="rune-slot" id="rune-tempo" onclick="selectRune('tempo')" style="padding: 0.5rem; background: var(--card); border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;" title="Slow eccentric (4s negative). +50% XP">
+              <span class="rune-glyph">⏳</span> Tempo
+            </div>
+            <div class="rune-slot" id="rune-plyo" onclick="selectRune('plyo')" style="padding: 0.5rem; background: var(--card); border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;" title="Explosive concentric phase. +30% XP">
+              <span class="rune-glyph">💥</span> Plyo
+            </div>
+            <div class="rune-slot" id="rune-weight" onclick="selectRune('weight')" style="padding: 0.5rem; background: var(--card); border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;" title="Backpack/Household load. +100% XP">
+              <span class="rune-glyph">🎒</span> Load
+            </div>
+          </div>
+          <div id="modal-rune-desc" style="padding: 0.6rem 0.8rem; background: var(--bg3); border-radius: 8px; border-left: 3px solid var(--border); font-size: 0.82rem; color: var(--muted); min-height: 48px; line-height: 1.4; font-family: var(--font-alt);">
+            No modifier active. Standard bodyweight workout pace.
+          </div>
+        </div>
+        <div class="modal-how-to">
+          <h4>📋 How to Perform</h4>
+          <ol class="how-list" id="modal-how"></ol>
+        </div>
+        <div class="modal-prereqs" id="modal-prereqs-section">
+          <h4>🔗 Prerequisites</h4>
+          <div class="prereqs-list" id="modal-prereqs"></div>
+        </div>
+        <div class="modal-unlocks" id="modal-unlocks-section">
+          <h4>🔓 Unlocks</h4>
+          <div class="unlocks-list" id="modal-unlocks"></div>
+        </div>
+        <div class="modal-unlocks" id="modal-suggest-section" style="display:none;">
+          <h4>💡 Next Skills to Try</h4>
+          <div class="unlocks-list" id="modal-suggest-list"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-action btn-inprogress" id="btn-inprogress" onclick="toggleInProgress()">
+            <span id="inprogress-icon">⚡</span> <span id="inprogress-text">Mark In Progress</span>
+          </button>
+          <button class="btn-action btn-master" id="btn-master" onclick="toggleMaster()">
+            <span id="master-icon">🏆</span> <span id="master-text">Mark Mastered</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACTIVE SESSION OVERLAY ===== -->
+  <div class="session-overlay" id="session-overlay">
+    
+    <!-- Checklist Intro Overlay (Form Confirmation) -->
+    <div class="session-checklist-card" id="session-checklist-card" style="display: none; background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; width: min(500px, 90vw); box-shadow: 0 10px 30px rgba(0,0,0,0.8); text-align: center;">
+      <h3 class="col-title" style="color: var(--accent); font-family: var(--font-head); font-size: 1.4rem; margin-bottom: 0.5rem; text-transform: uppercase;">📋 Form Checklist</h3>
+      <p style="font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--muted); line-height: 1.5;">Attune your mind and correct your posture before performing the exercise.</p>
+      <div class="checklist-items" id="checklist-items" style="text-align: left; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <!-- Injected by JS -->
+      </div>
+      <button class="btn-start-session" onclick="confirmChecklistAndStart()" style="width: 100%;">⚔️ Attuned - Begin Combat</button>
+    </div>
+
+    <!-- Active HUD -->
+    <div class="session-container" id="session-hud-container" style="display: none;">
+      
+      <!-- Boss Battle Status -->
+      <div class="boss-battle-hud" style="margin-bottom: 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; position: relative;">
+        <div class="boss-info" style="display: flex; justify-content: space-between; font-family: var(--font-alt); font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem;">
+          <span style="display: flex; align-items: center; gap: 0.35rem;"><span id="boss-emoji">🐉</span> <span id="boss-name">Gravity Golem</span></span>
+          <span id="boss-hp-text" style="color: var(--red);">1000 / 1000 HP</span>
+        </div>
+        <div class="boss-hp-bar-track" style="height: 10px; background: var(--bg2); border-radius: 5px; overflow: hidden;">
+          <div class="boss-hp-bar" id="boss-hp-bar" style="width: 100%; height: 100%; background: linear-gradient(90deg, var(--red), #b91c1c); transition: width 0.3s ease;"></div>
+        </div>
+        <div class="boss-damage-indicator" id="boss-damage-indicator" style="position: absolute; right: 1rem; bottom: -1rem; font-family: var(--font-head); font-weight: 900; color: var(--accent); font-size: 1.2rem; pointer-events: none; opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease;"></div>
+      </div>
+
+      <div class="session-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <span class="session-progress-lbl" style="font-family: var(--font-alt); font-weight: 700; color: var(--accent);">Exercise <span id="session-current-idx">1</span> of <span id="session-total-idx">5</span></span>
+        <button class="session-close" onclick="terminateSession()">✕ Abandon Quest</button>
+      </div>
+      
+      <div class="session-exercise-card">
+        <div class="session-ex-icon" id="session-ex-icon">🔥</div>
+        <h2 class="session-ex-title" id="session-ex-title">Push-up</h2>
+        <div class="session-ex-category" id="session-ex-category">PUSH BRANCH</div>
+        <p class="session-ex-goal" id="session-ex-goal">Goal: 3 sets of 10 reps</p>
+        
+        <!-- Timer Display (if static hold) / Rep Tracker -->
+        <div class="timer-section" id="timer-section">
+          <div class="timer-display" id="timer-display">00:30</div>
+          <div class="timer-controls">
+            <button class="btn-timer" id="btn-timer-toggle" onclick="toggleTimer()">▶ Start</button>
+            <button class="btn-timer btn-timer-reset" id="btn-timer-reset" onclick="resetTimer()">Reset</button>
+          </div>
+        </div>
+
+        <div class="rep-tracker-section" id="rep-tracker-section">
+          <div class="sets-display">Set <span id="current-set-num">1</span> of <span id="total-sets-num">3</span></div>
+          <div class="rep-goal-note">Perform reps at a slow, controlled tempo!</div>
+          <button class="btn-timer" id="btn-rep-completed" onclick="nextSetRepCount()" style="margin-top: 0.5rem; width: 100%;">Set Completed</button>
+        </div>
+
+        <!-- Rest Timer Section -->
+        <div id="rest-timer-section" style="display: none; margin-top: 1rem; padding: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; text-align: center; font-family: var(--font-alt);">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--accent3); letter-spacing: 0.05em; font-weight: 700; margin-bottom: 0.25rem;">⏳ Rest Period</div>
+          <div id="rest-timer-display" style="font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;">01:30</div>
+          <div style="display: flex; gap: 0.5rem; justify-content: center;">
+            <button class="btn-timer" onclick="adjustRestTimer(-15)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">-15s</button>
+            <button class="btn-timer" onclick="adjustRestTimer(15)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">+15s</button>
+            <button class="btn-timer" onclick="skipRest()" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; border-color: var(--muted); color: var(--muted);">Skip</button>
+          </div>
+        </div>
+
+        <div class="session-instructions" id="session-instructions">
+          <!-- Steps injected by JS -->
+        </div>
+      </div>
+
+      <div class="session-navigation">
+        <button class="btn-session-nav btn-session-prev" id="btn-session-prev" onclick="prevExercise()">← Previous</button>
+        <button class="btn-session-nav btn-session-next" id="btn-session-next" onclick="nextExercise()">Next Exercise →</button>
+        <button class="btn-session-nav btn-session-finish" id="btn-session-finish" style="display:none;" onclick="finishWorkoutSession()">🏆 Complete Quest!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CLASS SELECTION OVERLAY ===== -->
+  <div class="class-overlay" id="class-overlay" style="position: fixed; inset: 0; background: rgba(10,11,15,0.95); backdrop-filter: blur(10px); z-index: 400; display: none; align-items: center; justify-content: center;">
+    <div class="class-container" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; width: min(800px, 95vw); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center;">
+      <h2 class="class-title" style="font-family: var(--font-head); font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; color: #fff;">CHOOSE YOUR CLASS</h2>
+      <p class="class-desc" style="font-size: 0.95rem; color: var(--muted); margin-bottom: 2rem; max-width: 550px; margin-left: auto; margin-right: auto; line-height: 1.5;">Pick your calisthenics specialization. Your choice determines your starting stat distribution and provides a permanent passive XP bonus to that branch.</p>
+      
+      <div class="class-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left;">
+        <div class="class-card-opt" onclick="selectClass('goliath')" style="background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <img src="images/pixel_art_knight.png" class="class-opt-img" style="width: 85px; height: 85px; image-rendering: pixelated; border-radius: 4px; border: 2px solid #524433; margin-bottom: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+          <h3 class="class-opt-name" style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Goliath</h3>
+          <p class="class-opt-desc" style="font-size: 0.85rem; color: var(--muted); line-height: 1.4; flex: 1;">Specializes in brute strength, dominating push movements and dynamic leg drive squats.</p>
+          <div class="class-opt-bonus" style="margin-top: 1rem; font-family: var(--font-alt); font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">+25% XP Push & Legs</div>
+        </div>
+        <div class="class-card-opt" onclick="selectClass('acrobat')" style="background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <img src="images/pixel_art_rogue.png" class="class-opt-img" style="width: 85px; height: 85px; image-rendering: pixelated; border-radius: 4px; border: 2px solid #524433; margin-bottom: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+          <h3 class="class-opt-name" style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Acrobat</h3>
+          <p class="class-opt-desc" style="font-size: 0.85rem; color: var(--muted); line-height: 1.4; flex: 1;">Masters balance and handstands. Overcomes gravity through inversion techniques.</p>
+          <div class="class-opt-bonus" style="margin-top: 1rem; font-family: var(--font-alt); font-size: 0.8rem; font-weight: 700; color: var(--accent3); text-transform: uppercase;">+25% XP Wall Skills</div>
+        </div>
+        <div class="class-card-opt" onclick="selectClass('monk')" style="background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <img src="images/pixel_art_wizard.png" class="class-opt-img" style="width: 85px; height: 85px; image-rendering: pixelated; border-radius: 4px; border: 2px solid #524433; margin-bottom: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+          <h3 class="class-opt-name" style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Monk</h3>
+          <p class="class-opt-desc" style="font-size: 0.85rem; color: var(--muted); line-height: 1.4; flex: 1;">Achieves supreme control of core compression and fluid joint flexibility ranges.</p>
+          <div class="class-opt-bonus" style="margin-top: 1rem; font-family: var(--font-alt); font-size: 0.8rem; font-weight: 700; color: var(--accent2); text-transform: uppercase;">+25% XP Core & Mobility</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== XP POPUP ===== -->
+  <div class="xp-popup" id="xp-popup"></div>
+
+  <!-- ===== QUEST COMPLETION OVERLAY ===== -->
+  <div class="completion-overlay" id="completion-overlay" style="position: fixed; inset: 0; background: rgba(10,11,15,0.95); backdrop-filter: blur(10px); z-index: 500; display: none; align-items: center; justify-content: center;">
+    <div class="completion-container" style="background: var(--bg2); border: 2px solid var(--green); border-radius: 24px; padding: 2.5rem; width: min(550px, 95vw); box-shadow: 0 0 40px rgba(34, 197, 94, 0.25); text-align: center; position: relative; animation: zoomIn 0.3s ease;">
+      <div class="trophy-glow" style="font-size: 4.5rem; margin-bottom: 1rem; animation: pulseGlow 2s infinite;">🏆</div>
+      <h2 style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem; color: #fff; text-transform: uppercase; letter-spacing: 0.05em;">Quest Completed!</h2>
+      <p style="color: var(--green); font-family: var(--font-alt); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em;" id="completion-boss-defeated">Lactate Golem Defeated!</p>
+      
+      <div class="rewards-box" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.75rem; font-family: var(--font-alt); font-size: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
+          <span style="color: var(--muted);">XP Gained:</span>
+          <strong style="color: var(--accent);" id="completion-xp-gained">+300 XP</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
+          <span style="color: var(--muted);">Streak Multiplier:</span>
+          <strong style="color: var(--accent3);" id="completion-streak-val">🔥 5 Days</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--muted);">Active Warrior Level:</span>
+          <strong style="color: #fff;" id="completion-level-val">Lv. 3</strong>
+        </div>
+      </div>
+      
+      <button class="btn-start-session" onclick="closeCompletionOverlay()" style="width: 100%; background: linear-gradient(135deg, var(--green), #16a34a); color: #000; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);">
+        Return to Tavern
+      </button>
+    </div>
+  </div>
+
+  <script src="data.js?v=1.4"></script>
+  <script src="src/state.js?v=1.4"></script>
+  <script src="src/audio.js?v=1.4"></script>
+  <script src="src/profile.js?v=1.4"></script>
+  <script src="src/tree.js?v=1.4"></script>
+  <script src="src/nav.js?v=1.4"></script>
+  <script src="src/workout.js?v=1.4"></script>
+  <script src="app.js?v=1.4"></script>
+</body>
+</html>
