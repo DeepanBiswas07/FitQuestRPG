@@ -378,6 +378,7 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
+  min-width: 1000px;
 }
 
 .tier-label {
@@ -1676,13 +1677,6 @@ body {
 }
 
 @media (max-width: 900px) {
-  .tier-labels {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .tree-grid {
-    grid-template-columns: repeat(2, 1fr);
-    min-width: unset;
-  }
   .profile-card-grid, .quest-columns, .forge-options {
     grid-template-columns: 1fr;
   }
@@ -1716,9 +1710,6 @@ body {
 }
 
 @media (max-width: 600px) {
-  .tier-labels, .tree-grid {
-    grid-template-columns: 1fr;
-  }
   .modal-meta {
     grid-template-columns: 1fr;
   }

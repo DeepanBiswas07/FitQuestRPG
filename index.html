@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Grenze+Gotisch:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2.2" />
+  <link rel="stylesheet" href="style.css?v=2.3" />
 </head>
 <body>
 
@@ -107,20 +107,23 @@
           </div>
         </div>
 
-        <!-- Tier Headers -->
-        <div class="tier-labels" id="tier-labels">
-          <div class="tier-label" data-tier="1"><span class="tier-icon">🥉</span> Tier I — Initiate</div>
-          <div class="tier-label" data-tier="2"><span class="tier-icon">🥈</span> Tier II — Apprentice</div>
-          <div class="tier-label" data-tier="3"><span class="tier-icon">🥇</span> Tier III — Warrior</div>
-          <div class="tier-label" data-tier="4"><span class="tier-icon">💎</span> Tier IV — Champion</div>
-          <div class="tier-label" data-tier="5"><span class="tier-icon">👑</span> Tier V — Legend</div>
-        </div>
+        <!-- Scrollable Wrapper for Mobile -->
+        <div class="tree-scroll-wrapper" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 2rem; border-radius: 8px;">
+          <!-- Tier Headers -->
+          <div class="tier-labels" id="tier-labels">
+            <div class="tier-label" data-tier="1"><span class="tier-icon">🥉</span> Tier I — Initiate</div>
+            <div class="tier-label" data-tier="2"><span class="tier-icon">🥈</span> Tier II — Apprentice</div>
+            <div class="tier-label" data-tier="3"><span class="tier-icon">🥇</span> Tier III — Warrior</div>
+            <div class="tier-label" data-tier="4"><span class="tier-icon">💎</span> Tier IV — Champion</div>
+            <div class="tier-label" data-tier="5"><span class="tier-icon">👑</span> Tier V — Legend</div>
+          </div>
 
-        <!-- Skill Tree Canvas -->
-        <div class="tree-container" id="tree-container">
-          <svg class="connection-lines" id="connection-svg" xmlns="http://www.w3.org/2000/svg"></svg>
-          <div class="tree-grid" id="tree-grid">
-            <!-- Skills injected by JS -->
+          <!-- Skill Tree Canvas -->
+          <div class="tree-container" id="tree-container">
+            <svg class="connection-lines" id="connection-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="tree-grid" id="tree-grid">
+              <!-- Skills injected by JS -->
+            </div>
           </div>
         </div>
 
