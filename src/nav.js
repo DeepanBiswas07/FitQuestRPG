@@ -231,10 +231,14 @@ function openModal(skillId) {
     modalEl.classList.add("modal-changing");
     setTimeout(() => {
       populateModalData(skill, skillId);
+      modalEl.scrollTop = 0;
       modalEl.classList.remove("modal-changing");
     }, 120);
   } else {
     populateModalData(skill, skillId);
+    if (modalEl) {
+      modalEl.scrollTop = 0;
+    }
     if (overlayEl) {
       overlayEl.classList.add("open");
     }
