@@ -372,6 +372,15 @@ body {
 .legend-dot.available { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
 .legend-dot.mastered { background: var(--green); box-shadow: 0 0 6px var(--green); }
 
+/* ===== TREE SCROLL WRAPPER ===== */
+.tree-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+}
+
 /* ===== TIER LABELS ===== */
 .tier-labels {
   display: grid;
@@ -410,9 +419,10 @@ body {
 /* ===== SKILL TREE CANVAS ===== */
 .tree-container {
   position: relative;
-  overflow: auto;
+  overflow: visible;
   padding-bottom: 2rem;
   min-height: 750px;
+  min-width: 1000px;
   border: 3px double var(--border);
   border-radius: 8px;
   background: #fdfefb;
