@@ -667,8 +667,13 @@ body {
   padding: 2rem;
   position: relative;
   transform: scale(0.95);
-  transition: transform 0.25s;
+  transition: transform 0.25s, opacity 0.22s ease-in-out;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.modal.modal-changing {
+  opacity: 0.05 !important;
+  transform: scale(0.97) translateY(5px) !important;
 }
 
 .modal-overlay.open .modal {

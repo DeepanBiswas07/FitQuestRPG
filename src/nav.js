@@ -75,10 +75,7 @@ function toggleMute() {
 }
 
 // ===== SKILL DETAILS MODAL =====
-function openModal(skillId) {
-  const skill = calisthenicsSkills.find(s => s.id === skillId);
-  if (!skill) return;
-  
+function populateModalData(skill, skillId) {
   activeModalSkillId = skillId;
   
   document.getElementById("modal-icon").innerText = getSkillEmoji(skill);
@@ -143,6 +140,7 @@ function openModal(skillId) {
     suggestList.innerHTML = "";
     const nextSkills = calisthenicsSkills.filter(s => {
       if (state.mastered.includes(s.id)) return false;
+      if (s.id === skillId) return false;
       return canUnlock(s);
     }).slice(0, 4);
     if (nextSkills.length > 0) {
@@ -218,8 +216,29 @@ function openModal(skillId) {
   else if (activeRune === "plyo") mult = 1.3;
   else if (activeRune === "weight") mult = 2.0;
   document.getElementById("modal-xp").innerText = `+${Math.round(skill.xp * mult)} XP`;
-  const overlay = document.getElementById("modal-overlay");
-  if (overlay) overlay.classList.add("open");
+}
+
+function openModal(skillId) {
+  const skill = calisthenicsSkills.find(s => s.id === skillId);
+  if (!skill) return;
+
+  const modalEl = document.getElementById("skill-modal");
+  const overlayEl = document.getElementById("modal-overlay");
+  const isAlreadyOpen = overlayEl && overlayEl.classList.contains("open");
+
+  if (isAlreadyOpen && modalEl) {
+    playSound("click");
+    modalEl.classList.add("modal-changing");
+    setTimeout(() => {
+      populateModalData(skill, skillId);
+      modalEl.classList.remove("modal-changing");
+    }, 120);
+  } else {
+    populateModalData(skill, skillId);
+    if (overlayEl) {
+      overlayEl.classList.add("open");
+    }
+  }
 }
 
 function selectRune(runeName) {
