@@ -193,12 +193,9 @@ function drawLines() {
   connectionSvg.innerHTML = "";
   connectionSvg.style.display = "block";
   
-  // Size SVG to fit scrollable grid contents
-  connectionSvg.setAttribute("width", treeGrid.scrollWidth);
-  connectionSvg.setAttribute("height", treeGrid.scrollHeight);
-  
-  const isMobile = window.innerWidth <= 900;
-  if (isMobile) return;
+  // Size SVG to fit scrollable container contents
+  connectionSvg.setAttribute("width", treeContainer.scrollWidth);
+  connectionSvg.setAttribute("height", treeContainer.scrollHeight);
   
   // tree-grid is positioned relative to tree-container (the SVG's parent)
   const gridOffsetX = treeGrid.offsetLeft;

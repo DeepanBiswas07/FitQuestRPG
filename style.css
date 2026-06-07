@@ -385,9 +385,11 @@ body {
 .tier-labels {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem 0.5rem 2rem;
+  border-bottom: 2px dashed var(--border);
   min-width: 1000px;
+  background: rgba(20, 18, 15, 0.03);
 }
 
 .tier-label {
@@ -472,7 +474,7 @@ body {
   gap: 2.5rem 1.5rem;
   position: relative;
   z-index: 1;
-  padding: 3rem 2rem;
+  padding: 1.5rem 2rem 3rem 2rem;
   width: 100%;
   min-width: 1000px;
   transform-origin: 0 0;
