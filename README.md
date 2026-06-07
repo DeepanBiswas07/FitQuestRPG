@@ -1,8 +1,8 @@
-# ⚔️ CalPath: Calisthenics RPG Skill Tree & Quest Forge
+# ⚔️ FitQuestRPG: Calisthenics RPG Skill Tree & Quest Forge
 
 > *"Train with hearth, wall, and iron will. Ascend from a humble Initiate to a Sovereign Calisthenics Overlord."*
 
-**CalPath** is a gamified, client-side Calisthenics Progressive RPG web application. It turns physical training into an immersive roleplaying game by mapping real-world calisthenics skills to a progressive skill tree, featuring smart workout generation, procedural fantasy boss fights, custom achievements, and an offline synthesizer engine.
+**FitQuestRPG** is a gamified, client-side Calisthenics Progressive RPG web application. It turns physical training into an immersive roleplaying game by mapping real-world calisthenics skills to a progressive skill tree, featuring smart workout generation, procedural fantasy boss fights, custom achievements, and an offline synthesizer engine.
 
 ---
 
@@ -52,13 +52,13 @@ Instead of planning workouts, **Forge a Quest**:
 
 ## 🚀 Live Hosting with GitHub Pages (github.io)
 
-Since CalPath is a pure static web application (HTML, CSS, and client-side JavaScript) with offline state saving (`localStorage`), it can be hosted for free on **GitHub Pages** in under 2 minutes.
+Since FitQuestRPG is a pure static web application (HTML, CSS, and client-side JavaScript) with offline state saving (`localStorage`), it can be hosted for free on **GitHub Pages** in under 2 minutes.
 
 ### Step-by-Step Deployment Guide:
 
 1. **Create a GitHub Repository**:
    * Go to [github.com](https://github.com) and click **New Repository**.
-   * Name your repository (e.g. `calpath` or `calisthenics-rpg`).
+   * Name your repository exactly **`FitQuestRPG`**.
    * Set it to **Public** and click **Create repository**.
 
 2. **Upload Your Files**:
@@ -66,9 +66,9 @@ Since CalPath is a pure static web application (HTML, CSS, and client-side JavaS
      ```bash
      git init
      git add .
-     git commit -m "Initial commit - CalPath RPG Release"
+     git commit -m "Initial commit - FitQuestRPG Release"
      git branch -M main
-     git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+     git remote add origin https://github.com/DeepanBiswas07/FitQuestRPG.git
      git push -u origin main
      ```
    * Ensure your files are uploaded in the root folder of the repository:
@@ -87,8 +87,8 @@ Since CalPath is a pure static web application (HTML, CSS, and client-side JavaS
 4. **Access Your Live Server**:
    * Wait 30–60 seconds for GitHub to deploy the pages action.
    * Refresh the page; you will see a banner at the top of the **Pages** settings page saying:
-     > 🌐 **Your site is live at** `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/`
-   * Click the link to open your live CalPath server on any desktop, laptop, or phone!
+     > 🌐 **Your site is live at** `https://DeepanBiswas07.github.io/FitQuestRPG/`
+   * Click the link to open your live FitQuestRPG server on any desktop, laptop, or phone!
 
 ---
 

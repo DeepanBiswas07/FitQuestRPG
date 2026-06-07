@@ -755,7 +755,7 @@ function generateQuestLore(bossName, exercises) {
   const primaryCategory = exercises.length > 0 ? exercises[0].category.toLowerCase() : "calisthenics";
   
   const intros = [
-    `The peaceful valley of CalPath is under siege!`,
+    `The peaceful valley of FitQuest is under siege!`,
     `A dark shadow has fallen across the ancient training grounds.`,
     `Rumors are spreading of a terrible presence in the forgotten ruins.`,
     `The Guild Master has issued an urgent decree!`,
@@ -794,7 +794,7 @@ function generateQuestLore(bossName, exercises) {
       `A hidden chamber of flexibility holds the key. Perform deep mobility arches and splits prep to stretch your range and unlock the ancient relic guarding the ${bossName}.`
     ],
     default: [
-      `The mighty ${bossName} is terrorizing the region. Gather your strength, steel your focus, and execute these CalPath techniques to purge the darkness once and for all!`,
+      `The mighty ${bossName} is terrorizing the region. Gather your strength, steel your focus, and execute these FitQuest techniques to purge the darkness once and for all!`,
       `An epic battle is brewing. The ${bossName} has challenged the guild! Complete these training exercises to build your level and claim your ultimate victory.`,
       `A rare beast, the ${bossName}, has emerged from the wild. Steady your heart, align your form, and engage in combat to collect its bounty!`
     ]

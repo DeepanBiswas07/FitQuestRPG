@@ -51,7 +51,7 @@ const runeDescriptions = {
 
 // Save progress to LocalStorage
 function saveState() {
-  localStorage.setItem("calpath_state", JSON.stringify(state));
+  localStorage.setItem("fitquest_state", JSON.stringify(state));
   if (typeof updateDashboard === "function") updateDashboard();
   if (typeof renderTree === "function") renderTree();
   if (typeof updateQuestLog === "function") updateQuestLog();
@@ -60,7 +60,7 @@ function saveState() {
 
 // Load progress from LocalStorage
 function loadState() {
-  const saved = localStorage.getItem("calpath_state");
+  const saved = localStorage.getItem("fitquest_state") || localStorage.getItem("calpath_state");
   if (saved) {
     try {
       const parsed = JSON.parse(saved);
@@ -88,7 +88,7 @@ function loadState() {
         if (state.musicEnabled === undefined) state.musicEnabled = true;
       }
     } catch (e) {
-      console.error("Failed to parse calpath_state:", e);
+      console.error("Failed to parse fitquest_state:", e);
     }
   }
 }

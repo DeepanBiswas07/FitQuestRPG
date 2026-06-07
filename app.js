@@ -191,6 +191,7 @@ function importProgress() {
 // ===== RESET PROGRESS =====
 function confirmReset() {
   if (confirm("⚠️ Are you sure you want to RESET ALL progress? This cannot be undone!")) {
+    localStorage.removeItem("fitquest_state");
     localStorage.removeItem("calpath_state");
     location.reload();
   }
