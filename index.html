@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Grenze+Gotisch:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2.5" />
+  <link rel="stylesheet" href="style.css?v=2.6" />
 </head>
 <body>
 
@@ -91,7 +91,7 @@
           </div>
           <div class="filter-row" style="margin-top: 0.75rem; border-top: 1px solid var(--border); padding-top: 0.75rem; width: 100%; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
             <div class="filter-label">Environment Toggles:</div>
-            <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
               <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-floor" checked onchange="toggleEnvFilter('floor')"> Floor</label>
               <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-wall" checked onchange="toggleEnvFilter('wall')"> Wall</label>
               <label class="env-toggle" style="cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem;"><input type="checkbox" id="env-furniture" checked onchange="toggleEnvFilter('furniture')"> Ledge/Chair</label>
@@ -566,29 +566,29 @@
   </div>
 
   <!-- ===== CLASS SELECTION OVERLAY ===== -->
-  <div class="class-overlay" id="class-overlay" style="position: fixed; inset: 0; background: rgba(10,11,15,0.95); backdrop-filter: blur(10px); z-index: 400; display: none; align-items: center; justify-content: center;">
-    <div class="class-container" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; width: min(800px, 95vw); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center;">
-      <h2 class="class-title" style="font-family: var(--font-head); font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; color: #fff;">CHOOSE YOUR CLASS</h2>
-      <p class="class-desc" style="font-size: 0.95rem; color: var(--muted); margin-bottom: 2rem; max-width: 550px; margin-left: auto; margin-right: auto; line-height: 1.5;">Pick your calisthenics specialization. Your choice determines your starting stat distribution and provides a permanent passive XP bonus to that branch.</p>
+  <div class="class-overlay" id="class-overlay">
+    <div class="class-container">
+      <h2 class="class-title">CHOOSE YOUR CLASS</h2>
+      <p class="class-desc">Pick your calisthenics specialization. Your choice determines your starting stat distribution and provides a permanent passive XP bonus to that branch.</p>
       
-      <div class="class-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left;">
-        <div class="class-card-opt" onclick="selectClass('goliath')" style="background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <div class="class-cards">
+        <div class="class-card-opt" onclick="selectClass('goliath')">
           <img src="images/pixel_art_knight.png" class="class-opt-img" style="width: 85px; height: 85px; image-rendering: pixelated; border-radius: 4px; border: 2px solid #524433; margin-bottom: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
           <h3 class="class-opt-name" style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Goliath</h3>
           <p class="class-opt-desc" style="font-size: 0.85rem; color: var(--muted); line-height: 1.4; flex: 1;">Specializes in brute strength, dominating push movements and dynamic leg drive squats.</p>
-          <div class="class-opt-bonus" style="margin-top: 1rem; font-family: var(--font-alt); font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">+25% XP Push & Legs</div>
+          <div class="class-opt-bonus">+25% XP Push & Legs</div>
         </div>
-        <div class="class-card-opt" onclick="selectClass('acrobat')" style="background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div class="class-card-opt" onclick="selectClass('acrobat')">
           <img src="images/pixel_art_rogue.png" class="class-opt-img" style="width: 85px; height: 85px; image-rendering: pixelated; border-radius: 4px; border: 2px solid #524433; margin-bottom: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
           <h3 class="class-opt-name" style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Acrobat</h3>
           <p class="class-opt-desc" style="font-size: 0.85rem; color: var(--muted); line-height: 1.4; flex: 1;">Masters balance and handstands. Overcomes gravity through inversion techniques.</p>
-          <div class="class-opt-bonus" style="margin-top: 1rem; font-family: var(--font-alt); font-size: 0.8rem; font-weight: 700; color: var(--accent3); text-transform: uppercase;">+25% XP Wall Skills</div>
+          <div class="class-opt-bonus">+25% XP Wall Skills</div>
         </div>
-        <div class="class-card-opt" onclick="selectClass('monk')" style="background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div class="class-card-opt" onclick="selectClass('monk')">
           <img src="images/pixel_art_wizard.png" class="class-opt-img" style="width: 85px; height: 85px; image-rendering: pixelated; border-radius: 4px; border: 2px solid #524433; margin-bottom: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
           <h3 class="class-opt-name" style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Monk</h3>
           <p class="class-opt-desc" style="font-size: 0.85rem; color: var(--muted); line-height: 1.4; flex: 1;">Achieves supreme control of core compression and fluid joint flexibility ranges.</p>
-          <div class="class-opt-bonus" style="margin-top: 1rem; font-family: var(--font-alt); font-size: 0.8rem; font-weight: 700; color: var(--accent2); text-transform: uppercase;">+25% XP Core & Mobility</div>
+          <div class="class-opt-bonus">+25% XP Core & Mobility</div>
         </div>
       </div>
     </div>

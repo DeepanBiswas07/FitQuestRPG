@@ -1753,7 +1753,55 @@ body {
 
 /* ===== RPG GAMIFICATION ADDITIONS ===== */
 
+/* ===== CLASS OVERLAY ===== */
+.class-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,11,15,0.95);
+  backdrop-filter: blur(10px);
+  z-index: 400;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.class-container {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: min(800px, 95vw);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  text-align: center;
+  position: relative;
+}
+
+.class-title {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.class-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
 /* Class Selection Cards */
+.class-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  text-align: left;
+}
+
 .class-card-opt {
   position: relative;
   background: var(--card);
@@ -2407,6 +2455,66 @@ body::after {
   }
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+/* ===== MOBILE CUSTOM OVERRIDES FOR OVERLAYS AND TOGGLES ===== */
+@media (max-width: 768px) {
+  .class-overlay {
+    align-items: flex-start !important;
+    padding: 1.5rem 1rem !important;
+    overflow-y: auto !important;
+  }
+  .class-container {
+    padding: 1.5rem 1rem !important;
+    border-radius: 16px !important;
+    margin: 1.5rem auto !important;
+    width: 100% !important;
+    max-height: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
+  }
+  .class-cards {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .class-card-opt {
+    padding: 1rem !important;
+  }
+  .class-title {
+    font-size: 1.5rem !important;
+  }
+  .class-desc {
+    font-size: 0.85rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Reclaim screen width by hiding side vines on small screens */
+  body::before, body::after {
+    display: none !important;
+  }
+
+  /* Prevent right overflow stretching by hiding absolute corner leaf branches */
+  .tree-container::after, 
+  .forge-setup-card::after, 
+  .quest-log-content::after, 
+  .session-checklist-card::after, 
+  .class-container::after, 
+  .session-hud-container::after, 
+  .session-container::after, 
+  .hero-banner::after {
+    display: none !important;
+  }
+
+  /* Compact padding for main filter bar */
+  .filter-bar {
+    padding: 0.8rem 1rem !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Compact padding for quest completion overlay */
+  .completion-container {
+    padding: 1.5rem 1rem !important;
+    border-radius: 16px !important;
   }
 }
 
