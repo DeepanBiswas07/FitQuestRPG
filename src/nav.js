@@ -109,7 +109,8 @@ function openModal(skillId) {
       if (prereq) {
         const tag = document.createElement("span");
         tag.className = "prereq-tag";
-        tag.innerText = prereq.name;
+        tag.innerText = `${getSkillEmoji(prereq)} ${prereq.name}`;
+        tag.onclick = () => openModal(prereq.id);
         prereqsList.appendChild(tag);
       }
     });
@@ -127,7 +128,8 @@ function openModal(skillId) {
     unlocks.forEach(unlock => {
       const tag = document.createElement("span");
       tag.className = "unlock-tag";
-      tag.innerText = unlock.name;
+      tag.innerText = `${getSkillEmoji(unlock)} ${unlock.name}`;
+      tag.onclick = () => openModal(unlock.id);
       unlocksList.appendChild(tag);
     });
   } else {
